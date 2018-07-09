@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(OrthancSqlServerStoragePlugin)
+
+# enable c++11
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_DEBUG_POSTFIX "d")
+
+if(UNIX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+endif()
+
+set(SQL_SERVER_STORAGE_PLUGIN_VERSION_MAJOR "0")
+set(SQL_SERVER_STORAGE_PLUGIN_VERSION_MINOR "1")
+set(SQL_SERVER_STORAGE_PLUGIN_VERSION_PATCH "0")
+set(SQL_SERVER_STORAGE_PLUGIN_VERSION "${SQL_SERVER_STORAGE_PLUGIN_VERSION_MAJOR}.${SQL_SERVER_STORAGE_PLUGIN_VERSION_MINOR}.${SQL_SERVER_STORAGE_PLUGIN_VERSION_PATCH}" )
+
+# Add custom cmake modules to CMAKE_MODULE_PATH
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" "${CMAKE_MODULE_PATH}" )
+
+if(UNIX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --coverage")
+endif()
+
+# Find required packages
+find_package(Qt5 COMPONENTS Core REQUIRED)
+find_package(Orthanc REQUIRED)  
+find_package(JsonCpp REQUIRED)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+
+add_subdirectory("plugin")
+add_subdirectory("tests")
