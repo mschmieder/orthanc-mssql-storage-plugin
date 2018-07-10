@@ -47,7 +47,7 @@ ${cmake_exec} --build . --config Debug --target install -- -j
 
 cd ${BUILD_DIR}/release
 ${cmake_exec} ${SOURCE_DIR} -G"Unix Makefiles" \
-      -DORTHANC_ROOT:PATH="${SOURCE_DIR}/Orthanc-${ORTHANC_VERSION}" \
+      -DORTHANC_ROOT:PATH="${ORTHANC_ROOT}" \
       -DCMAKE_TOOLCHAIN_FILE:PATH=${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake \
       -DCMAKE_INSTALL_PREFIX:PATH=${INSTALL_DIR} \
       -DCMAKE_BUILD_TYPE=Release \

@@ -1,13 +1,25 @@
 version: '3'
 
 services:
-  build:
-    image: orthanc-azure-blob-storage-plugin-sdk
+  monolithic-build:
+    image: orthanc-mssql-storage-plugin-sdk
     build:
       context: .
-      dockerfile: docker/Dockerfile.ubuntu-18.04
+      dockerfile: Dockerfile
       args:
         ORTHANC_VERSION: 1.3.1 
+    volumes:
+      - .:/src
+    working_dir: /src
+    environment:
+      ORTHANC_ROOT: /bootstrap/Orthanc-1.3.1
+      BUILD_DIR: /src/build
+      INSTALL_DIR: /src/install
+      VCPKG_DIR: /bootstrap/vcpkg
+    command: /bin/bash build.sh
+services:
+  github-build:
+    image: mschmieder/orthanc-mssql-storage-plugin-sdk
     volumes:
       - .:/src
     working_dir: /src

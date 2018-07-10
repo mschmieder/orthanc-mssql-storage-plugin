@@ -12,4 +12,4 @@ before_install:
   - sudo apt-get -y install docker-ce
 
 script:
-- docker-compose run build
+- docker-compose run github-build
